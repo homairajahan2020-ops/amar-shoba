@@ -1,6 +1,7 @@
 import { ArrowUpRight, ArrowDownLeft, CreditCard, Smartphone, Wallet as WalletIcon, History } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { toast } from "sonner";
 
 const paymentMethods = [
   {
@@ -57,6 +58,22 @@ const recentTransactions = [
 ];
 
 export default function Wallet() {
+  const handleSend = () => {
+    toast("টাকা পাঠানোর বৈশিষ্ট্য শীঘ্রই আসছে / Send money feature coming soon");
+  };
+
+  const handleReceive = () => {
+    toast("টাকা গ্রহণের বৈশিষ্ট্য শীঘ্রই আসছে / Receive money feature coming soon");
+  };
+
+  const handlePaymentMethod = (method: string) => {
+    toast(`${method} দিয়ে পেমেন্ট শীঘ্রই আসছে / Payment with ${method} coming soon`);
+  };
+
+  const handleQuickAction = (action: string) => {
+    toast(`${action} বৈশিষ্ট্য শীঘ্রই আসছে / ${action} feature coming soon`);
+  };
+
   return (
     <div className="max-w-2xl mx-auto space-y-6">
       <div className="flex items-center justify-between">
@@ -77,11 +94,17 @@ export default function Wallet() {
             <p className="text-lg opacity-90">BDT 15,450</p>
           </div>
           <div className="grid grid-cols-2 gap-3">
-            <Button className="bg-white/20 hover:bg-white/30 text-white border-0">
+            <Button 
+              onClick={handleSend}
+              className="bg-white/20 hover:bg-white/30 text-white border-0"
+            >
               <ArrowUpRight className="h-4 w-4 mr-2" />
               <span className="font-bengali">পাঠান</span>
             </Button>
-            <Button className="bg-white/20 hover:bg-white/30 text-white border-0">
+            <Button 
+              onClick={handleReceive}
+              className="bg-white/20 hover:bg-white/30 text-white border-0"
+            >
               <ArrowDownLeft className="h-4 w-4 mr-2" />
               <span className="font-bengali">গ্রহণ</span>
             </Button>
@@ -98,7 +121,8 @@ export default function Wallet() {
         <div className="grid grid-cols-3 gap-3">
           {paymentMethods.map((method) => (
             <Card 
-              key={method.id} 
+              key={method.id}
+              onClick={() => handlePaymentMethod(method.name)}
               className="cursor-pointer hover:shadow-card transition-shadow"
             >
               <CardContent className="p-4 text-center">
@@ -123,7 +147,10 @@ export default function Wallet() {
           <span className="text-sm text-muted-foreground">Quick Actions</span>
         </h3>
         <div className="grid grid-cols-2 gap-3">
-          <Card className="cursor-pointer hover:shadow-card transition-shadow">
+          <Card 
+            onClick={() => handleQuickAction("Mobile Recharge")}
+            className="cursor-pointer hover:shadow-card transition-shadow"
+          >
             <CardContent className="p-4 flex items-center gap-3">
               <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center">
                 <Smartphone className="h-5 w-5 text-primary" />
@@ -134,7 +161,10 @@ export default function Wallet() {
               </div>
             </CardContent>
           </Card>
-          <Card className="cursor-pointer hover:shadow-card transition-shadow">
+          <Card 
+            onClick={() => handleQuickAction("Bill Payment")}
+            className="cursor-pointer hover:shadow-card transition-shadow"
+          >
             <CardContent className="p-4 flex items-center gap-3">
               <div className="h-10 w-10 rounded-lg bg-secondary/10 flex items-center justify-center">
                 <CreditCard className="h-5 w-5 text-secondary" />

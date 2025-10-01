@@ -2,6 +2,8 @@ import { Heart, MessageCircle, Share2, MoreVertical } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
+import { useState } from "react";
+import { toast } from "sonner";
 
 const mockPosts = [
   {
@@ -48,6 +50,32 @@ const mockPosts = [
 ];
 
 export default function Feed() {
+  const [likedPosts, setLikedPosts] = useState<Set<number>>(new Set());
+
+  const handleLike = (postId: number) => {
+    const newLiked = new Set(likedPosts);
+    if (newLiked.has(postId)) {
+      newLiked.delete(postId);
+      toast("লাইক সরানো হয়েছে / Like removed");
+    } else {
+      newLiked.add(postId);
+      toast("লাইক করা হয়েছে / Post liked");
+    }
+    setLikedPosts(newLiked);
+  };
+
+  const handleComment = (postId: number) => {
+    toast("মন্তব্য বৈশিষ্ট্য শীঘ্রই আসছে / Comment feature coming soon");
+  };
+
+  const handleShare = (postId: number) => {
+    toast("শেয়ার বৈশিষ্ট্য শীঘ্রই আসছে / Share feature coming soon");
+  };
+
+  const handleCreatePost = () => {
+    toast("পোস্ট তৈরি বৈশিষ্ট্য শীঘ্রই আসছে / Create post feature coming soon");
+  };
+
   return (
     <div className="max-w-2xl mx-auto space-y-4">
       <div className="flex items-center justify-between">
@@ -63,7 +91,10 @@ export default function Feed() {
               <AvatarImage src="https://api.dicebear.com/7.x/avataaars/svg?seed=user" />
               <AvatarFallback>আপ</AvatarFallback>
             </Avatar>
-            <button className="flex-1 text-left px-4 py-2 rounded-full bg-muted text-muted-foreground hover:bg-muted/80 transition-colors">
+            <button 
+              onClick={handleCreatePost}
+              className="flex-1 text-left px-4 py-2 rounded-full bg-muted text-muted-foreground hover:bg-muted/80 transition-colors"
+            >
               আপনার মনে কি আছে? / What's on your mind?
             </button>
           </div>
@@ -116,20 +147,25 @@ export default function Feed() {
             <div className="grid grid-cols-3 gap-2 w-full">
               <Button 
                 variant="ghost" 
-                className="gap-2 hover:bg-primary/10 hover:text-primary"
+                onClick={() => handleLike(post.id)}
+                className={`gap-2 hover:bg-primary/10 hover:text-primary ${
+                  likedPosts.has(post.id) ? 'text-primary' : ''
+                }`}
               >
-                <Heart className="h-4 w-4" />
+                <Heart className={`h-4 w-4 ${likedPosts.has(post.id) ? 'fill-current' : ''}`} />
                 <span className="text-sm">লাইক</span>
               </Button>
               <Button 
-                variant="ghost" 
+                variant="ghost"
+                onClick={() => handleComment(post.id)}
                 className="gap-2 hover:bg-primary/10 hover:text-primary"
               >
                 <MessageCircle className="h-4 w-4" />
                 <span className="text-sm">মন্তব্য</span>
               </Button>
               <Button 
-                variant="ghost" 
+                variant="ghost"
+                onClick={() => handleShare(post.id)}
                 className="gap-2 hover:bg-primary/10 hover:text-primary"
               >
                 <Share2 className="h-4 w-4" />

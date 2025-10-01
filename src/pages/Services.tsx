@@ -1,5 +1,6 @@
 import { Car, UtensilsCrossed, ShoppingBag, Zap, GraduationCap, HeartPulse, Plane, Film } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
+import { toast } from "sonner";
 
 const services = [
   {
@@ -90,6 +91,14 @@ const featuredServices = [
 ];
 
 export default function Services() {
+  const handleServiceClick = (serviceName: string) => {
+    toast(`${serviceName} শীঘ্রই আসছে / ${serviceName} coming soon`);
+  };
+
+  const handleLearnMore = () => {
+    toast("নতুন সেবা যোগ করার তথ্য শীঘ্রই আসছে / Information about adding new services coming soon");
+  };
+
   return (
     <div className="max-w-6xl mx-auto space-y-8">
       <div className="flex items-center justify-between">
@@ -106,7 +115,8 @@ export default function Services() {
         <div className="grid md:grid-cols-2 gap-4">
           {featuredServices.map((service) => (
             <Card 
-              key={service.id} 
+              key={service.id}
+              onClick={() => handleServiceClick(service.titleEn)}
               className="overflow-hidden cursor-pointer hover:shadow-elegant transition-all group"
             >
               <div className="relative h-48 overflow-hidden">
@@ -142,10 +152,11 @@ export default function Services() {
           {services.map((service) => {
             const Icon = service.icon;
             return (
-              <Card 
-                key={service.id} 
-                className="cursor-pointer hover:shadow-elegant transition-all group"
-              >
+            <Card 
+              key={service.id}
+              onClick={() => handleServiceClick(service.nameEn)}
+              className="cursor-pointer hover:shadow-elegant transition-all group"
+            >
                 <CardContent className="p-6 text-center">
                   <div className={`${service.color} h-16 w-16 rounded-2xl mx-auto mb-4 flex items-center justify-center group-hover:scale-110 transition-transform shadow-lg`}>
                     <Icon className="h-8 w-8 text-white" />
@@ -171,7 +182,10 @@ export default function Services() {
           <p className="text-xs opacity-75 mb-4">
             Create your own mini-app and reach millions of users
           </p>
-          <button className="bg-white text-primary px-6 py-2 rounded-lg font-medium hover:bg-white/90 transition-colors">
+          <button 
+            onClick={handleLearnMore}
+            className="bg-white text-primary px-6 py-2 rounded-lg font-medium hover:bg-white/90 transition-colors"
+          >
             আরও জানুন • Learn More
           </button>
         </CardContent>

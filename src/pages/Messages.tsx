@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { toast } from "sonner";
 
 const mockChats = [
   {
@@ -53,6 +54,18 @@ const mockChats = [
 ];
 
 export default function Messages() {
+  const handleChatClick = (chatName: string) => {
+    toast(`${chatName} এর সাথে চ্যাট খোলা হচ্ছে / Opening chat with ${chatName}`);
+  };
+
+  const handleCall = (chatName: string) => {
+    toast(`${chatName} কে কল করা হচ্ছে / Calling ${chatName}`);
+  };
+
+  const handleVideoCall = (chatName: string) => {
+    toast(`${chatName} এর সাথে ভিডিও কল / Video calling ${chatName}`);
+  };
+
   return (
     <div className="max-w-4xl mx-auto">
       <div className="flex items-center justify-between mb-4">
@@ -74,6 +87,7 @@ export default function Messages() {
         {mockChats.map((chat) => (
           <Card 
             key={chat.id} 
+            onClick={() => handleChatClick(chat.nameEn)}
             className="p-4 hover:bg-muted/50 transition-colors cursor-pointer"
           >
             <div className="flex items-start gap-3">
@@ -116,13 +130,37 @@ export default function Messages() {
               </div>
 
               <div className="flex gap-1">
-                <Button variant="ghost" size="icon" className="h-8 w-8">
+                <Button 
+                  variant="ghost" 
+                  size="icon" 
+                  className="h-8 w-8"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleCall(chat.nameEn);
+                  }}
+                >
                   <Phone className="h-4 w-4" />
                 </Button>
-                <Button variant="ghost" size="icon" className="h-8 w-8">
+                <Button 
+                  variant="ghost" 
+                  size="icon" 
+                  className="h-8 w-8"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleVideoCall(chat.nameEn);
+                  }}
+                >
                   <Video className="h-4 w-4" />
                 </Button>
-                <Button variant="ghost" size="icon" className="h-8 w-8">
+                <Button 
+                  variant="ghost" 
+                  size="icon" 
+                  className="h-8 w-8"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    toast("বিকল্প শীঘ্রই আসছে / Options coming soon");
+                  }}
+                >
                   <MoreVertical className="h-4 w-4" />
                 </Button>
               </div>
