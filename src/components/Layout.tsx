@@ -1,5 +1,5 @@
 import { Home, MessageCircle, Wallet, Grid3x3 } from "lucide-react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, Outlet } from "react-router-dom";
 import { cn } from "@/lib/utils";
 
 const navItems = [
@@ -9,7 +9,7 @@ const navItems = [
   { icon: Grid3x3, label: "সেবা", labelEn: "Services", path: "/services" },
 ];
 
-export default function Layout({ children }: { children: React.ReactNode }) {
+export default function Layout() {
   const location = useLocation();
 
   return (
@@ -31,7 +31,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       </header>
 
       <main className="container px-4 py-6 max-w-6xl mx-auto">
-        {children}
+        <Outlet />
       </main>
 
       {/* Bottom Navigation */}
