@@ -14,13 +14,102 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      profiles: {
+        Row: {
+          created_at: string | null
+          email: string | null
+          full_name: string | null
+          id: string
+          phone: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          email?: string | null
+          full_name?: string | null
+          id: string
+          phone?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          email?: string | null
+          full_name?: string | null
+          id?: string
+          phone?: string | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      transactions: {
+        Row: {
+          amount: number
+          created_at: string | null
+          description: string | null
+          from_user_id: string | null
+          id: string
+          status: string | null
+          to_user_id: string | null
+          transaction_type: string
+        }
+        Insert: {
+          amount: number
+          created_at?: string | null
+          description?: string | null
+          from_user_id?: string | null
+          id?: string
+          status?: string | null
+          to_user_id?: string | null
+          transaction_type: string
+        }
+        Update: {
+          amount?: number
+          created_at?: string | null
+          description?: string | null
+          from_user_id?: string | null
+          id?: string
+          status?: string | null
+          to_user_id?: string | null
+          transaction_type?: string
+        }
+        Relationships: []
+      }
+      wallets: {
+        Row: {
+          balance: number | null
+          created_at: string | null
+          currency: string | null
+          id: string
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          balance?: number | null
+          created_at?: string | null
+          currency?: string | null
+          id?: string
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          balance?: number | null
+          created_at?: string | null
+          currency?: string | null
+          id?: string
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      transfer_money: {
+        Args: { p_amount: number; p_to_user_id: string }
+        Returns: Json
+      }
     }
     Enums: {
       [_ in never]: never
